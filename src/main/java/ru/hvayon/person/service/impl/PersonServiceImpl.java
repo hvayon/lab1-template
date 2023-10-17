@@ -1,6 +1,7 @@
 package ru.hvayon.person.service.impl;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,13 +16,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static java.util.Objects.requireNonNull;
+
 @Service
 public class PersonServiceImpl implements PersonService {
     @Autowired
     private PersonRepository personRepository;
     @Transactional(readOnly = true)
     @Override
-    public Person getPersonById(int id) {
+    public Person getPersonById(Integer id) {
         Optional<Person> person = Optional.ofNullable(personRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Person with id=" + id + " not found")));
         return person.get();
@@ -34,7 +37,8 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public int addPerson(PersonRequest request) {
+    @Transactional
+    public Integer addPerson(@NotNull PersonRequest request) {
         Person saved = new Person(request.getName(), request.getAge(), request.getWork(), request.getAddress());
         personRepository.save(saved);
         return saved.getId();
@@ -55,40 +59,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public void deletePerson(int id) {
+    public void deletePerson(Integer id) {
         personRepository.deleteById(id);
     }
-
-//    @Transactional(readOnly = true)
-//    @Override
-//    public PersonResponse getPerson(int id) {
-//        PersonDTO person = personRepository.findByName(id)
-//                .orElseThrow(() -> new EntityNotFoundException("Person " + id + " not found"));
-//        return new PersonResponse(person);
-//    }
-//
-//    @Transactional(readOnly = true)
-//    @Override
-//    public List<PersonResponse> getPersons() {
-//        List<PersonDTO> persons = personRepository.findAll();
-//        return persons.stream()
-//                .map(new PersonResponse(this))
-//                .collect(Collectors.toList());
-//
-//    }
-//
-//    @Override
-//    public int createPerson(PersonRequest personRequest) {
-//        return 0;
-//    }
-//
-//    @Override
-//    public PersonResponse editPerson(int id, PersonRequest personRequest) {
-//        return null;
-//    }
-//
-//    @Override
-//    public void deletePerson(int id) {
-//
-//    }
 }

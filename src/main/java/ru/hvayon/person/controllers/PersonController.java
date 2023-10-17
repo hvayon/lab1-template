@@ -25,7 +25,7 @@ public class PersonController {
         this.personService = personService;
     }
     @GetMapping("/persons/{id}")
-    public Person getPersonById(@PathVariable("id") int id){
+    public Person getPersonById(@PathVariable("id") Integer id){
         return personService.getPersonById(id);
     }
 
@@ -53,7 +53,7 @@ public class PersonController {
 
     @DeleteMapping("/persons/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePerson(@PathVariable int id) {
+    public void deletePerson(@PathVariable Integer id) {
         personService.deletePerson(id);
     }
 

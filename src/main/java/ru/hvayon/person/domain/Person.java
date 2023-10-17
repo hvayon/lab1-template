@@ -2,21 +2,24 @@ package ru.hvayon.person.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 @Entity
 @Table(name = "persons")
+@AllArgsConstructor(staticName = "build")
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
     @Column(name = "name")
     private String name;
     @Column(name = "age")
-    private int age;
+    private Integer age;
     @Column(name = "address")
     private String address;
     @Column(name = "work")
@@ -29,7 +32,7 @@ public class Person {
         this.work = work;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -37,7 +40,7 @@ public class Person {
         return name;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
@@ -47,6 +50,9 @@ public class Person {
 
     public String getWork() {
         return work;
+    }
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override

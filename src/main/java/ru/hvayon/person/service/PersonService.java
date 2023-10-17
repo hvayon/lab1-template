@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface PersonService {
-    public Person getPersonById(int id);
+    public Person getPersonById(Integer id);
     public List<Person> getPersons();
-    public int addPerson(PersonRequest request);
+    public Integer addPerson(PersonRequest request);
     public Person editPerson(int id, Map<String, Object> field) throws Throwable;
-    public void deletePerson(int id);
+    public void deletePerson(Integer id);
 }
