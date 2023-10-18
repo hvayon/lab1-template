@@ -16,6 +16,8 @@ jobs:
           fetch-depth: 0
 
       # TODO build, test and deploy project
+      - name: Set secret in application.properties
+        run: echo "spring.datasource.password=${{ secrets.DATA_BASE_PASSWORD }}" >> src/main/resources/application.properties
 
       - name: Run API Tests
         uses: matt-ball/newman-action@master
